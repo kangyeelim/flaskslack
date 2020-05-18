@@ -1,9 +1,5 @@
-console.log("first");
-
 document.addEventListener('DOMContentLoaded', () => {
 	 
-		console.log("inside");
-
     // Connect to websocket
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     // When connected, configure button

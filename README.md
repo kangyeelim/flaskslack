@@ -21,6 +21,9 @@ $ cd flaskslack
 # Install all dependencies
 $ pip install -r requirements.txt
 
+$ export FLASK_APP = application.py
+$ export SECRET_KEY = <your secret key>
+
 # Run
 $ flask run
 
