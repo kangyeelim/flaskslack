@@ -1,5 +1,8 @@
 {% extends "layout2.html" %}
-<script src="{{ url_for('static', filename='chat.js') }}"></script>
+{% block head %}
+ <script src="../static/channel.js"></script>
+{% endblock %}
+
 {% block body %}
 <div class="container">
 <h3 class=" text-center">Chat Channel</h3>
@@ -12,18 +15,20 @@
 
 </div>
 <div class="container-channel custom-window">
+	<div class="card border-0 shadow my-5">
+	<div class="card-body p-5">
     <div id="chat-box" class="list-group">
         <textarea id="chat" cols="30" rows="20" readonly>
             {%- if messages -%} 
                 {%- for message in messages -%}
-                    <{{ message[0] }}> - [{{ message[1] }}]: {{ message [2] }} {{'\n'}}
+                    <{{ message[0] }}> [{{ message[1] }}]: {{ message [2] }} {{'\n'}}
                 {%- endfor -%}
                 {{ '----- These are old messages -----' }}{{- '\n' -}}
             {%- endif -%}
         </textarea>
     </div>
-
-    <div id="message-box">
+	<div style="height:10px"></div>
+    <div class="container" id="message-box">
         <div class="form-border">
             <div class="form-row">
                 <div class="form-group col-sm">
@@ -31,7 +36,7 @@
                         <input id="comment" class="form-control" size="50" autocomplete="off" autofocus>
                     </div>
                 </div>
-                <div class="form-group col-sm-2">
+                <div class="form-group col-sm-1">
                     <button id="send-button" class="btn btn-success" type="reset">Send</button>
                 </div>
                 <div class="form-group col-sm-1">
@@ -40,6 +45,8 @@
             </div>
         </div>
     </div>
+	</div>
+	</div>
 </div>
 
 {% endblock %}

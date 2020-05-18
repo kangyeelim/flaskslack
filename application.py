@@ -3,7 +3,7 @@ import os
 from collections import deque
 from flask import Flask, render_template, request, session, redirect, flash
 from loginhelper import login_required
-from flask_socketio import SocketIO, send, emit, join_room, leave_room
+from flask_socketio import SocketIO, emit, join_room, leave_room
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
@@ -63,7 +63,7 @@ def enterchannel(channel):
 	channels=channels, messages=channelMessages[channel])
 
 
-@socketio.on("joined")
+@socketio.on("joined", namespace='/')
 def joined():
 	""" Send message to announce that user has entered the channel """
     # Save current channel to join room.
@@ -76,7 +76,7 @@ def joined():
         'msg': session.get('username') + ' has entered the channel'}, 
         room=room)
 
-@socketio.on("left")
+@socketio.on("left", namespace='/')
 def left():
     """ Send message to announce that user has left the channel """
 
