@@ -2,6 +2,8 @@
 ## Web Programming with Python and JavaScript
 ### https://courses.edx.org/courses/course-v1:HarvardX+CS50W+Web/course/
 
+![](static/img/loginpage.png)
+
 ## Usage
 * Choose a username and login
 * Create a new channel or select an existent one
