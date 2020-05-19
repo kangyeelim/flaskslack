@@ -1,5 +1,7 @@
 # flaskslack
-## Web Programming with Python and JavaScript
+## Flask Web App with Python and JavaScript
+This is a simple chatting web app similar to slack. 
+
 ### https://courses.edx.org/courses/course-v1:HarvardX+CS50W+Web/course/
 
 ![](static/img/loginpage.png)
