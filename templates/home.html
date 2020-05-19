@@ -1,5 +1,7 @@
 {% extends "layout2.html" %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% block head %}
+<script src="../static/home.js"></script>
+{% endblock %}
 
 {% block body %}
 {% with messages = get_flashed_messages() %}
@@ -10,21 +12,19 @@
 		  </div>
 	{% endif %}
 {% endwith %}
+<div class="d-flex justify-content-center">
+<div class="container-channel custom-window">
+	<div class="card border-0 shadow my-5">
+	<div class="card-body p-5">
 	<p>Add a channel or Join a channel to begin.</p>
 	<form action="/create" method="post">
         <div class="form-group">
             <input type="text" class="form-control" name="channel" id="channel" autofocus>
         </div>
-        <button class="btn btn-primary" type="submit">Add Channel</button>
+        <button id="submit" class="btn btn-primary" type="submit">Add Channel</button>
     </form>
-
-	<script>
-		
-        if (localStorage.getItem('last_channel')) {
-            // Redirect to last channel
-            let channel = localStorage.getItem('last_channel');    
-            window.location.replace('/channels/' + channel);   
-        }
-
-    </script>
+	</div>
+    </div>
+</div>
+</div>
 {% endblock %}

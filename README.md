@@ -6,8 +6,12 @@
 * Choose a username and login
 * Create a new channel or select an existent one
 * Start chatting. 
-* Logout to leave all chat channels. 
-* Close browser at anytime but can still retain all joined chat channels
+* Logout to leave all chat channels which gives up the username.
+* Close browser in chat and re-opening browser will automatically lead to the same chatting
+* Creator of the channel can delete the channel
+* Non-creator of the channel will not be allowed to delete the channel
+* Returning to channel will restore past 100 messages
+* (Coming soon) Support sending files
  
 
 ## Setup

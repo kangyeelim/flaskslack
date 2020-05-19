@@ -1,13 +1,13 @@
 {% extends "layout2.html" %}
 {% block head %}
- <script src="../static/channel.js"></script>
+ <script src="../static/chat.js"></script>
 {% endblock %}
 
 {% block body %}
 <div class="container">
-<h3 class=" text-center">Chat Channel</h3>
 <div>
-    <h1 style="margin-bottom: 1rem">
+<h3 class=" text-center" style="margin-top: 1rem">Chat Channel</h3>
+    <h1 class=" text-center" style="margin-bottom: 1rem">
         <span class="badge badge-dark">
             {{ session.channel }}
         </span>
@@ -36,14 +36,15 @@
                         <input id="comment" class="form-control" size="50" autocomplete="off" autofocus>
                     </div>
                 </div>
-                <div class="form-group col-sm-1">
+                <div class="form-group col-sm-0">
                     <button id="send-button" class="btn btn-success" type="reset">Send</button>
                 </div>
-                <div class="form-group col-sm-1">
-                    <button id="leave" type="button" class="btn btn-warning">Leave</button>
+				<div class="form-group col-sm-0">
+                    <button id="delete-channel" class="btn btn-warning">Delete Channel</button>
                 </div>
             </div>
         </div>
+		<input type="file" id="files" accept="image/*" />
     </div>
 	</div>
 	</div>

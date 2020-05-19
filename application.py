@@ -18,6 +18,9 @@ users = []
 # Instanciate a dict
 channelMessages = dict()
 
+creators = dict()
+
+
 @app.route("/")
 @login_required
 def home():
@@ -49,23 +52,27 @@ def create():
 	channels.append(channel)
 	session["channel"] = channel
 	channelMessages[channel] = deque()
+	creators[channel] = session["username"]
 	return redirect("/channels/" + channel)
 	
-@app.route("/channels/<channel>")
+@app.route("/channels/<channel>", methods=['GET','POST'])
 @login_required
 def enterchannel(channel):
 	""" Show channel page to send and receive messages """
 
     # Updates user current channel
 	session['channel'] = channel
-
-	return render_template("chat.html", username = session["username"],
-	channels=channels, messages=channelMessages[channel])
+	if request.method == "POST":   
+		return redirect("/")
+	else:
+		return render_template("chat.html", username = session["username"],
+		channels=channels, messages=channelMessages[channel])
 
 
 @socketio.on("joined", namespace='/')
 def joined():
 	""" Send message to announce that user has entered the channel """
+	
     # Save current channel to join room.
 	room = session.get('channel')
 
@@ -87,6 +94,7 @@ def left():
     emit('status', {
         'msg': session.get('username') + ' has left the channel'}, 
         room=room)
+		
 
 @socketio.on('send message')
 def send_msg(msg, timestamp):
@@ -108,18 +116,47 @@ def send_msg(msg, timestamp):
         'timestamp': timestamp,
         'msg': msg}, 
         room=room)		
+		
+@socketio.on("deletechannel", namespace='/')
+def deletechannel():
+
+	# Broadcast only to users on the same channel.
+	room = session.get('channel')
+
+	# Delete messages from channel and remove channel
+	if creators[room] == session["username"]:
+		channelMessages.pop(room)
+		channels.remove(room)
+		leave_room(room)
+
+		emit('deleted channel', room=room)
+	else:
+		emit('status', {'msg': session.get('username') + ' tried to delete the channel. Only the channel creator can.'}, room=room)
 	
-@app.route("/signout", methods=['POST'])
+@socketio.on('rest delete channel')
+def restdeletechannel():
+
+	# Broadcast only to users on the same channel.
+	room = session.get('channel')
+
+	# Leave room
+	leave_room(room)	
+	
+@socketio.on('image-upload')
+def imageUpload(image_data):
+    room = session.get('channel')
+    emit('send-image', image_data, room=room)
+	
+@app.route("/signout")
 def signout():
-    """ Logout user from list and delete cookie."""
+	""" Logout user from list and delete cookie."""
 
-    # Remove from list
-    try:
-        users.remove(session['username'])
-    except ValueError:
-        pass
+	# Remove from list
+	try:
+		users.remove(session['username'])
+	except ValueError:
+		pass
 
-    # Delete cookie
-    session.clear()
+	session.clear()
 
-    return redirect("/")
+	return redirect("/")
