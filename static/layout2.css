@@ -1,0 +1,14 @@
+body, html {
+	margin: 0;
+	padding: 0;
+	height: 10%;
+	background: #d4f3ef;
+}
+
+.card-body {
+	background:#abf0e9;
+}
+
+.add_channel_btn {
+	width: 30%;
+}
