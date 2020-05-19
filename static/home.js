@@ -1,4 +1,3 @@
-localStorage.removeItem('last_channel');
 if (localStorage.getItem('last_channel')) {
             // Redirect to last channel
             let channel = localStorage.getItem('last_channel');    

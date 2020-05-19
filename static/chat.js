@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on('announce message', data => {
 
         // Format message
-        let row = '<' + `${data.timestamp}` + '> - ' + '[' + `${data.user}` + ']:  ' + `${data.msg}`
+        let row = '<' + `${data.timestamp}` + '> ' + '[' + `${data.user}` + ']:  ' + `${data.msg}`
         document.querySelector('#chat').value += row + '\n'
     })
  
